@@ -15,7 +15,6 @@ clear
 - Testing CI with Github & Jenkins for tech230 test 100
 - testing CI with webook
 - new webhook added
-aa
 
 - CD
 ```
