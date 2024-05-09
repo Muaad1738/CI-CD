@@ -127,23 +127,23 @@ Successfully set up a CI/CD pipeline using Jenkins for your Node.js project! Jen
 ### Continuous Integration (CI)
 
 #### Create Development Branch
-    ```bash
+    ```
     git checkout main
-    ```
-    ```bash
+    
+    
     git checkout -b dev
-    ```
-    ```bash
+    
+    
     git push origin dev
     ```
 ### Merge Code from Development to Main Branch
-    ```bash
+    ```
     git checkout main
-    ```
-    ```bash
+    
+    
     git merge dev
-    ```
-    ```bash
+    
+    
     git push origin main
     ```
 
