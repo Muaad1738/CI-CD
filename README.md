@@ -1,9 +1,9 @@
 
 # Testing webook with github and Jenkins with Tech257 live demo
 
-clear
 
-test new 
+
+
 
 # CICD testing cde
 ## CI testing with tech221 from localhost to Jenkins 
