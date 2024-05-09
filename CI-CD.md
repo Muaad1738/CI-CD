@@ -124,21 +124,25 @@ Successfully set up a CI/CD pipeline using Jenkins for your Node.js project! Jen
 
 ## CI/CD Pipeline
 
+
+
 ### Continuous Integration (CI)
+![alt text](images-2/dia.png)
 
-
-#### Create Development Branch hh
+#### Create Development Branch 
 ``` bash 
 git checkout -b dev    
 git push origin dev
 ```
 ### Merge Code from Development to Main Branch
 - Configure Jenkins to use your Git repository and specify the dev branch.
+  ![alt text](images-2/gitsec.png)
 - Scroll down to the "Post-build Actions" section and click on "Add post-build action".
     - Select "Git Publisher".
+![alt text](images-2/gitpublish.png)
 - Check the box for "Merge before build".
   - Set the "Branch to merge to" as main.
-
+![alt text](images-2/merge-before-buld.png)
 
 ## Setting Up Production Environment on EC2
 
