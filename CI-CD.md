@@ -158,14 +158,12 @@ Successfully set up a CI/CD pipeline using Jenkins for your Node.js project! Jen
 To create a production environment on Amazon EC2, follow these steps:
 
 1. **Launch EC2 Instance:**
-   - Go to the AWS Management Console and navigate to the EC2 dashboard.
-   - Click on "Launch Instance" to start the instance creation wizard.
-   - Choose the "Ubuntu Server 18.04 LTS" Amazon Machine Image (AMI) as the base image for your instance.
+   - Choose the "Ubuntu Server 18.04 LTS" 
 
 2. **Configure Security Group:**
-   - In the "Configure Security Group" step of the instance creation wizard, create a new security group or select an existing one.
    - Configure inbound rules to allow traffic on the following ports:
      - Port 22 (SSH) for remote access to the instance.
-     - Port 8080 for Jenkins (assuming Jenkins is running on this port).
-     - Port 3000 for Node.js applications (adjust this port based on your application configuration).
+     - Port 8080 for Jenkins.
+     - Port 3000 for Node.js applications.
      - Port 80 for HTTP traffic.
+
