@@ -171,3 +171,53 @@ To create a production environment on Amazon EC2, follow these steps:
      - Port 3000 for Node.js applications.
      - Port 80 for HTTP traffic.
 
+## Continuous Delivery using EC2 Instance and Jenkins
+
+Outlines the steps for setting up Continuous Delivery (CD) using an EC2 instance and Jenkins.
+
+### Provisioning EC2 Instance
+Use Jenkins to run this build with setting up the nginx server.
+
+```bash
+ssh -o "StrictHostKeyChecking=no" ubuntu@54.171.88.247 << EOF
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt-get install nginx -y
+sudo systemctl enable nginx
+EOF
+```
+This section provisions an EC2 instance and installs Nginx web server on it. 
+```bash
+rsync -avz -e "ssh -o StrictHostKeyChecking=no" app ubuntu@54.171.88.247:/home/ubuntu
+rsync -avz -e "ssh -o StrictHostKeyChecking=no" environment ubuntu@54.171.88.247:/home/ubuntu
+```
+This section deploys the application files and environment configuration to the EC2 instance.
+
+SSH into your EC2 instance manually and run the following commands 
+
+```bash 
+curl -fsSL https://deb.nodesource.com/setup_10.x | sudo DEBIAN_FRONTEND=noninteractive -E bash - && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
+
+sudo apt install npm -y
+
+cd app
+
+npm install
+
+sudo npm install pm2 -g
+
+pm2 stop app
+
+pm2 start app.js
+```
+This section installs Node.js, npm, and other dependencies required for the application. It then starts the application using PM2 process manager.
+
+Once all dependencies are installed manually, modify your script for the build to run on jenkins server. 
+
+- Make sure the SSH agent is linked so jenkins can go into your EC2 instance. 
+  ![alt text](images-2/tech258pem.png)
+- Add your shell commands in the build section.
+  ![alt text](images-2/build.png)
+
+Run your build and and your app should be working. 
+
