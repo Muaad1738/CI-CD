@@ -222,3 +222,41 @@ Once all dependencies are installed manually, modify your script for the build t
 
 Run your build and and your app should be working. 
 
+### New job changing the home page.
+
+- in the app folder make changes to the index file.
+- create a new jenkins projects
+- in the build section 
+  ```bash 
+    # Clone the code from main branch to the production environment (EC2 instance) using rsync
+    rsync -avz -e "ssh -o StrictHostKeyChecking=no" app ubuntu@34.245.77.132:/home/ubuntu
+    rsync -avz -e "ssh -o StrictHostKeyChecking=no" environment ubuntu@34.245.77.132:/home/ubuntu
+
+    # Connect to the EC2 instance and execute commands
+    ssh -o "StrictHostKeyChecking=no" ubuntu@34.245.77.132 <<EOF
+    
+    # Ensure the provision.sh script has executable permission
+    sudo chmod +x ~/environment/app/provision.sh
+    
+    # Execute the provision.sh script to set up any necessary environment configurations
+    sudo bash ~/environment/app/provision.sh
+    
+    # Navigate to the app directory
+    cd app
+    
+    # Install required dependencies using npm
+    npm install
+
+    # Install PM2 globally using npm
+    sudo npm install -g pm2
+
+    # Kill all existing PM2-managed Node.js processes
+    pm2 kill
+
+    # Start the Node.js application using PM2 (commented out)
+    # pm2 start app.js
+
+    EOF
+    ```
+
+the new posts page with the updated link should be now working.
