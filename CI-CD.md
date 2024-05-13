@@ -1,21 +1,21 @@
 # CI/CD Pipeline 
 
 ## Understanding CI, CD, and Continuous Deployment (CD)
-
+![alt text](images-2/ci-cd.jpg)
 ### Continuous Integration (CI)
 
 Continuous Integration is a development practice where developers frequently integrate their code changes into a shared repository. Each integration triggers automated build and test processes to detect errors quickly.
-
+![alt text](images-2/ci.png)
 
 ### Continuous Delivery (CD)
 
 Continuous Delivery extends CI by automating the deployment process, allowing teams to release software updates to production or staging environments quickly and reliably.
-
+![alt text](images-2/cd.png)
 
 ### Continuous Deployment (CD)
 
 Continuous Deployment takes CD one step further by automatically deploying every code change that passes through the CI/CD pipeline to production environments without manual intervention.
-
+![alt text](images-2/cde.png)
 
 ## What is a CI/CD Pipeline?
 
@@ -42,7 +42,6 @@ CI/CD pipelines are essential for any project, especially:
    - **Jenkins Master**: Jenkins coordinates the CI/CD process.
    - **Agent Nodes**: Jenkins agents (running on separate machines or containers) execute build and test tasks.
    - **Build & Test**: Agents pull code from the repository, build the application, and run automated tests.
-   - **Artifact Generation**: Build artifacts are stored in Jenkins or a repository manager.
 3. **Continuous Deployment (CD)**:
    - **AWS Integration**: Jenkins interacts with AWS services for deployment.
    - **Deployment Pipeline**: Jenkins pipelines define stages for deploying to different environments (e.g., staging, production).
@@ -125,18 +124,13 @@ Successfully set up a CI/CD pipeline using Jenkins for your Node.js project! Jen
 ## CI/CD Pipeline
 ![alt text](images-2/dia.png)
 
-Title: Continuous Integration and Continuous Deployment with Jenkins
+Continuous Integration (CI) and Continuous Deployment (CD) are crucial practices in modern software development, ensuring that code changes are tested, integrated, and deployed efficiently and reliably. 
 
-Continuous Integration (CI) and Continuous Deployment (CD) are crucial practices in modern software development, ensuring that code changes are tested, integrated, and deployed efficiently and reliably. In this discussion, we'll explore the implementation of CI/CD using Jenkins, a popular automation server.
+- Job 1: Code Integration and Testing: This job pulls code changes from GitHub dev branches and executes tests to verify integration and code quality. It's triggered automatically via webhook upon code changes, ensuring frequent validation of new code against existing standards.
 
-Jenkins is chosen for its versatility, extensibility, and robustness in orchestrating complex CI/CD pipelines. Leveraging Jenkins allows for seamless integration with various tools and technologies, making it an ideal choice for automating software delivery pipelines.
+- Job 2: Main Branch Integration and Testing: This task merges validated changes into the main branch and conducts additional tests to affirm stability. By continuously validating the main branch, it ensures that the codebase remains reliable and deployable.
 
-Our CI/CD pipeline consists of two Jenkins jobs orchestrated to execute one after the other. The first job involves building a Node.js application and linking it with a Git repository using SSH for version control. This job is responsible for fetching the latest changes from the repository, running tests.
-
-To begin the CI process, the job starts by switching from the `main` branch to the `dev` branch using the following Git command:
-
-
-Once the CI job completes successfully, the second Jenkins job is triggered automatically. This job handles the CD aspect by merging the changes from the `dev` branch to the `main` branch in the Git repository. Jenkins orchestrates this merge seamlessly, ensuring that the `main` branch always reflects the latest changes from the development branch.
+- Job 3: Deployment to EC2: Responsible for deploying the Node.js app onto an EC2 instance, this job automates the deployment process, guaranteeing reliable and repeatable deployment of thoroughly tested code. It completes the CD pipeline, delivering changes to a production-like environment efficiently.
 
  By implementing CI/CD with Jenkins, teams can achieve faster time-to-market, higher quality software releases, and improved collaboration among development, testing, and operations teams.
 
@@ -171,9 +165,9 @@ To create a production environment on Amazon EC2, follow these steps:
      - Port 3000 for Node.js applications.
      - Port 80 for HTTP traffic.
 
-## Continuous Delivery using EC2 Instance and Jenkins
+## Using EC2 Instance and Jenkins
 
-Outlines the steps for setting up Continuous Delivery (CD) using an EC2 instance and Jenkins.
+Outlines the steps for setting up using an EC2 instance and Jenkins.
 
 ### Provisioning EC2 Instance
 Use Jenkins to run this build with setting up the nginx server.
@@ -195,19 +189,26 @@ This section deploys the application files and environment configuration to the 
 
 SSH into your EC2 instance manually and run the following commands 
 
-```bash 
+```bash
+# Install Node.js 10.x from the NodeSource repository
 curl -fsSL https://deb.nodesource.com/setup_10.x | sudo DEBIAN_FRONTEND=noninteractive -E bash - && sudo DEBIAN_FRONTEND=noninteractive apt-get install -y nodejs
 
+# Install npm package manager
 sudo apt install npm -y
 
+# Navigate to the app directory
 cd app
 
+# Install dependencies using npm
 npm install
 
+# Install PM2 globally using npm
 sudo npm install pm2 -g
 
+# Stop the PM2-managed Node.js app
 pm2 stop app
 
+# Start the Node.js app using PM2
 pm2 start app.js
 ```
 This section installs Node.js, npm, and other dependencies required for the application. It then starts the application using PM2 process manager.
