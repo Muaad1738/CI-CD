@@ -10,7 +10,6 @@ sudo apt-get upgrade -y
 # install git
 sudo apt-get install git -y
 
-sudo sed -i '51s/.*/\t proxy_pass http:\/\/localhost:3000;/' /etc/nginx/sites-enabled/default
 
 # install nodejs
 sudo apt-get install python-software-properties -y
